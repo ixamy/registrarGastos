@@ -1,0 +1,4 @@
+<?php include "conectar.php";?>
+<?php	$txtNombre = $_POST['nombre'];	$txtImporte = $_POST['importe'];	$txtCategoria = $_POST['categoria'];	$txtCartera = $_POST['cartera'];	$IE = $_POST['IE'];
+	$sql = "INSERT INTO gasto (gastoId, gastoNombre, gastoImporte, gastoCategoriaId, gastoCarteraId, gastoFechaHora) VALUES (0, '$txtNombre', $txtImporte, $txtCategoria, $txtCartera, current_timestamp())";	if($IE == TRUE){		$sql2 = "UPDATE cartera set carteraMonto=carteraMonto-$txtImporte where carteraId=$txtCartera";	} else {		$sql2 = "UPDATE cartera set carteraMonto=carteraMonto+$txtImporte where carteraId=$txtCartera";	}	
+	if ($conn->query($sql) === TRUE && $conn->query($sql2) === TRUE) {		header("Location: registroGastos.php");		$conn->close();	} else {	  echo "Error: " . $sql . "<br><br>" . $conn->error;	}?>
